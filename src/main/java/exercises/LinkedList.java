@@ -1,8 +1,8 @@
 package exercises;
 
-class Node {
-    int elem;
-    Node next;
+class Node {                                                // Elements of our list
+    int elem;                                               // Identification
+    Node next;                                              // Pointing to next element
 
     Node(int elem, Node next) {
         this.elem = elem;
@@ -15,25 +15,15 @@ public class LinkedList {
 
     public void add(int elem) {
         if (first == null) {
-            // this means the list is empty!
-            // handle the simple case
-            Node n = new Node(elem, null);
-            first = n;
-        } else {
-            // first != null
-            // handle the more tricky case
-
-            // 1. step: find last node!
-            // The last node is the node where
-            // next == null!
-            Node current = first;
-            while (current.next != null) { // is it the last node?
-                current = current.next;
+            if (first == null)                                  // LinkedList is empty
+                first = new Node(elem, null);             // Create first element
+            else {
+                Node current = first;                           // Starting from first
+                while (current.next != null)                    // If there exist next one
+                    current = current.next;                     // Then go to successor
+                current.next = new Node(elem, null);      // Add new one after "no successor" element
             }
-            // here, we know: current is the last node
-            // because current.next == null
-            Node last = current;
-            last.next = new Node(elem, null);
         }
     }
 }
+
