@@ -17,4 +17,12 @@ public class TestLinkedList {
         }
         assertEquals(true, success);
     }
+
+    @Test
+    public void testAdd_Get () {
+        LinkedList list = new LinkedList();
+        list.add(1);
+        assertEquals(1, list.get(0));
+    }
+
 }
