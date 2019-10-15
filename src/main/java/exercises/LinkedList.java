@@ -14,15 +14,13 @@ public class LinkedList {
     Node first = null;
 
     public void add(int elem) {
-        if (first == null) {
-            if (first == null)                                  // LinkedList is empty
-                first = new Node(elem, null);             // Create first element
-            else {
-                Node current = first;                           // Starting from first
-                while (current.next != null)                    // If there exist next one
-                    current = current.next;                     // Then go to successor
-                current.next = new Node(elem, null);      // Add new one after "no successor" element
-            }
+        if (first == null)                                  // LinkedList is empty
+            first = new Node(elem, null);             // Create first element
+        else {
+            Node current = first;                           // Starting from first
+            while (current.next != null)                    // If there exist next one
+                current = current.next;                     // Then go to successor
+            current.next = new Node(elem, null);      // Add new one after "no successor" element
         }
     }
 
@@ -47,7 +45,7 @@ public class LinkedList {
         }
     }
 
-    public int size(LinkedList list) {
+    public int size() {                                         // 2 cases
         if (first == null) {                                    // Case 1: zero elements
             return 0;
         } else {                                                // Case 2: at least one element
