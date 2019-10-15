@@ -25,4 +25,18 @@ public class TestLinkedList {
         assertEquals(1, list.get(0));
     }
 
+    @Test
+    public void testAdd_GetOutOfBounds () {
+        LinkedList list = new LinkedList();
+        list.add(1);
+        boolean success = false;
+        try {
+            list.get(1);
+            fail("should have thrown an exception");
+        } catch (IndexOutOfBoundsException e) {
+            success = true;
+        }
+        assertEquals(true, success);
+    }
+
 }
