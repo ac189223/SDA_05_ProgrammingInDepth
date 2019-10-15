@@ -2,6 +2,8 @@ package exercises;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -39,9 +41,18 @@ public class TestLinkedList {
         }
         assertEquals(true, success);
     }
+
     @Test
     public void testSizeOnEmptyList () {
         LinkedList list = new LinkedList();
         assertEquals(0, list.size());
     }
+
+    @Test
+    public void testAddOne_Size () {
+        LinkedList list = new LinkedList();
+        list.add(1);
+        assertEquals(1, list.size());
+    }
+
 }
