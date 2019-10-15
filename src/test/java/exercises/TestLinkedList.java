@@ -1,6 +1,7 @@
 package exercises;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -38,5 +39,9 @@ public class TestLinkedList {
         }
         assertEquals(true, success);
     }
-
+    @Test
+    public void testSizeOnEmptyList () {
+        LinkedList list = new LinkedList();
+        assertEquals(0, list.size());
+    }
 }
