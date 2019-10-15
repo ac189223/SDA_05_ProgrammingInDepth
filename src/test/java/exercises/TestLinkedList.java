@@ -55,4 +55,12 @@ public class TestLinkedList {
         assertEquals(1, list.size());
     }
 
+    @Test
+    public void testAddRandom_Size () {
+        LinkedList list = new LinkedList();
+        int amount = new Random().nextInt(10) + 11;
+        for (int i = 0; i < amount; i++)
+            list.add(i);
+        assertEquals(amount, list.size());
+    }
 }
