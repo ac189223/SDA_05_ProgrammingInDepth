@@ -22,6 +22,17 @@ public class TestLinkedList {
     }
 
     @Test
+    public void testGetOnListWithNodes () {
+        LinkedList list = new LinkedList();
+        list.add(1);
+        list.add(8);
+        list.add(4);
+        assertEquals(1, list.get(0));                       // First
+        assertEquals(4, list.get(2));                       // Last
+        assertEquals(8, list.get(1));                       // Middle
+    }
+
+    @Test
     public void testAdd_Get () {
         LinkedList list = new LinkedList();
         list.add(1);
