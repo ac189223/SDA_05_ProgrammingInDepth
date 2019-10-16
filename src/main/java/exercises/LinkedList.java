@@ -4,6 +4,7 @@ class Node {                                                // Elements of our l
     int elem;                                               // Identification
     Node next;                                              // Pointing to next element
 
+    // Constructor
     Node(int elem, Node next) {
         this.elem = elem;
         this.next = next;
@@ -13,6 +14,7 @@ class Node {                                                // Elements of our l
 public class LinkedList {
     Node first = null;
 
+    // Add new node to the list
     public void add(int elem) {
         if (first == null)                                  // LinkedList is empty
             first = new Node(elem, null);             // Create first element
@@ -24,6 +26,7 @@ public class LinkedList {
         }
     }
 
+    // Get element stored under index in the list
     public int get(int index) {                                 // 2 cases
         if (first == null) {                                    // Case 1: zero elements
                                                                 // throw exception
@@ -45,6 +48,7 @@ public class LinkedList {
         }
     }
 
+    // Get size of the list
     public int size() {                                         // 2 cases
         if (first == null) {                                    // Case 1: zero elements
             return 0;
