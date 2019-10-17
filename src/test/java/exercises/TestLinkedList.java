@@ -2,10 +2,10 @@ package exercises;
 
 import org.junit.Test;
 
-import java.util.Random;
+        import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+        import static org.junit.Assert.assertEquals;
+        import static org.junit.Assert.fail;
 
 public class TestLinkedList {
     @Test
