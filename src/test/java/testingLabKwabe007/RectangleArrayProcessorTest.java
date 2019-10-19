@@ -2,20 +2,20 @@ package testingLabKwabe007;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import static java.util.Arrays.stream;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for RectangleProcessor.
  *
  * @author Simon Larsén
  * @author Anton Lyxell
- * @version 2018-11-11
+ * @author andrzejcalka
+ * @author =-_-=
+ * @version 2019-10-19
  */
 public class RectangleArrayProcessorTest {
 
@@ -34,7 +34,6 @@ public class RectangleArrayProcessorTest {
         rectangleArrayProcessor = new RectangleArrayProcessor();
     }
 
-
     @Test
     void testProcessorRemovesRectanglesLargerThan() {
         // Arrange
@@ -45,19 +44,100 @@ public class RectangleArrayProcessorTest {
                 new Rectangle(1, 5)
         };
         int inputMaxArea = 5;
-        Rectangle[] expectedArray = {
+        Rectangle[] expectedArrayForMaxArea = {
                 new Rectangle(2, 2),
+                new Rectangle(1, 5)
+        };
+        Rectangle r = new Rectangle(4, 4);
+        Rectangle[] expectedArrayForR = {
+                new Rectangle(2, 2),
+                new Rectangle(2, 3),
                 new Rectangle(1, 5)
         };
 
         // Act
-        Rectangle[] actualArray = rectangleArrayProcessor.removeRectanglesLargerThan(inputArray, inputMaxArea);
+        Rectangle[] actualArrayForMaxArea = rectangleArrayProcessor.removeRectanglesLargerThan(inputArray, inputMaxArea);
+        Rectangle[] actualArrayForR = rectangleArrayProcessor.removeRectanglesLargerThan(inputArray, r);
 
         // Assert
-        assertArrayEquals(expectedArray, actualArray);
+        assertArrayEquals(expectedArrayForMaxArea, actualArrayForMaxArea);
+        assertArrayEquals(expectedArrayForR, actualArrayForR);
+        assertNotEquals(actualArrayForR, actualArrayForMaxArea);
     }
 
+    @Test
+    void testContainsSquare() {
+        // Arrange
+        Rectangle[] inputArrayWithSquare = {
+                new Rectangle(2, 2),
+                new Rectangle(2, 3),
+                new Rectangle(5, 4),
+                new Rectangle(1, 5)
+        };
+        Rectangle[] inputArrayWithoutSquare = {
+                new Rectangle(2, 3),
+                new Rectangle(5, 4),
+                new Rectangle(1, 5)
+        };
+
+        // Act
+        boolean checkOfArrayWithSquare = rectangleArrayProcessor.containsSquare(inputArrayWithSquare);
+        boolean checkOfArrayWithoutSquare = rectangleArrayProcessor.containsSquare(inputArrayWithoutSquare);
+
+        // Assert
+        assertTrue(checkOfArrayWithSquare);
+        assertFalse(checkOfArrayWithoutSquare);
+    }
+
+    @Test
+    void testFilterRectanglesWithEqualArea() {
+        // Arrange
+        Rectangle[] inputArrayWith = {
+                new Rectangle(2, 2),
+                new Rectangle(2, 3),
+                new Rectangle(5, 4),
+                new Rectangle(3, 2),
+                new Rectangle(1, 6),
+                new Rectangle(5, 3),
+                new Rectangle(3, 5)
+        };
+        Rectangle[] inputArrayWithout = {
+                new Rectangle(2, 2),
+                new Rectangle(5, 4),
+                new Rectangle(5, 3),
+                new Rectangle(3, 5)
+        };
+        Rectangle r = new Rectangle(6, 1);
+        Rectangle[] expectedArrayWithForR = {
+                new Rectangle(2, 3),
+                new Rectangle(3, 2),
+                new Rectangle(1, 6),
+        };
+
+        // Act
+        Rectangle[] actualArrayWithForR = rectangleArrayProcessor.filterRectanglesWithEqualArea(inputArrayWith, r);
+        int actualSizeArrayWithoutForR = rectangleArrayProcessor.filterRectanglesWithEqualArea(inputArrayWithout, r).length;
+
+        // Assert
+        assertArrayEquals(expectedArrayWithForR, actualArrayWithForR);
+        assertEquals(0, actualSizeArrayWithoutForR);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * A helper class to aid construction of collections of Rectangle object. You don't have to use this class
