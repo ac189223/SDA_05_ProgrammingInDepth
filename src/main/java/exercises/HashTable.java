@@ -16,6 +16,13 @@ public class HashTable {
     private static final int SIZE = 1024;                         // FINAL are checked by compiler regarding trying to change
     private Entry[] table = new Entry[SIZE];                      // Entry do not need a list
 
+    /**
+     * Method to insert the new pair (key, value) into HashTable
+     *
+     * @param key       The key to be stored in HashTable
+     * @param value     The value associated with the key
+     * @throws IllegalAccessException
+     */
     public void insert(Object key, Object value) throws IllegalAccessException {
         if (key == null) {
             throw new IllegalAccessException("null not allowed");
@@ -31,11 +38,20 @@ public class HashTable {
         }
     }
 
-    public Entry lookup(Object key) {
-        Entry e = table[key.hashCode() % SIZE];                 // Locate beginning of right chain
+    /**
+     * Method to find the value associated with the given key in HashTable
+     *
+     * @param key       The key that will be searched
+     * @return          The value associated with the given key
+     *                  Null if the key does not exist
+     */
+    public Object lookup(Object key) {
+        if (key == null)
+            throw new IllegalArgumentException("null key not permitted");
+        Entry e = table[Math.abs(key.hashCode() % SIZE)];                 // Locate beginning of right chain
         while (e != null) {                                     // Until the end of the chain
             if (e.key == key)                                   // If an entry has the right key
-                return e;                                       // Found
+                return e.value;                                       // Found
             else                                                // If key is different
                 e = e.next;                                     // Go to next one
         }
