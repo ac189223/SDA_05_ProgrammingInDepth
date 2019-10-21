@@ -2,12 +2,33 @@ package exercise01;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestCsvFileOperator {
     private final CsvFileOperator CFO = new CsvFileOperator();
     private final String FILE_NAME = "src/main/java/resources/animals.csv";
 
+    /**
+     * Read data from non existing file
+     */
+    @Test
+    public void testGetAnimalDataFromNonExistingFile() {
+        // Act
+        DataSet fetchedData = CFO.getAnimalData("src/main/java/resources/fakeFile.csv");
+        // Assert
+        int amountOfAnimals = fetchedData.getAnimals().size();
+        int amountOfIncorrectLines = fetchedData.getIncorrectLines();
+        // Assert
+        assertEquals(0, amountOfAnimals);
+        assertEquals(0, amountOfIncorrectLines);
+    }
+
+    /**
+     * Read data from provided file
+     */
     @Test
     public void testGetAnimalData() {
         // Act
