@@ -51,12 +51,12 @@ public class DataFileOperator {
                         }
                         catch(NumberFormatException e) {
                             // throw new NumberFormatException("Line has an incorrect value for year of birth:\n    " + record);
-                            System.out.println("Line has an incorrect value for year of birth:\n    " + record);
+                            System.out.println("Line has an incorrect value for year of birth: " + record);
                             return null;
                         }
                     }
                     else {
-                        System.out.println("Line has the wrong number of fields:\n    " + record);
+                        System.out.println("Line has the wrong number of fields: " + record);
                         return null;
                     }
                 };
