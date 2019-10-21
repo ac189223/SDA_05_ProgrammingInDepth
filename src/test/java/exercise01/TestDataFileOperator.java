@@ -4,6 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests of data reader used to fetch data from the csv file
+ *
+ * @author andrzejcalka
+ * @author =-_-=
+ */
 public class TestDataFileOperator {
     private final DataFileOperator CFO = new DataFileOperator();
     private final String FILE_NAME = "src/main/java/resources/animals.csv";
