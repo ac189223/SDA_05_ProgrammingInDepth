@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author =-_-=
  */
 public class TestDataFileOperator {
-    private final DataFileOperator CFO = new DataFileOperator();
+    private final DataFileOperator DFO = new DataFileOperator();
     private final String FILE_NAME = "src/main/java/resources/animals.csv";
 
     /**
@@ -20,7 +20,7 @@ public class TestDataFileOperator {
     @Test
     public void testGetAnimalDataFromNonExistingFile() {
         // Act
-        DataSet fetchedData = CFO.getAnimalData("src/main/java/resources/fakeFile.csv");
+        DataSet fetchedData = DFO.getAnimalData("src/main/java/resources/fakeFile.csv");
         // Assert
         int amountOfAnimals = fetchedData.getAnimals().size();
         int amountOfIncorrectLines = fetchedData.getIncorrectLines();
@@ -35,7 +35,7 @@ public class TestDataFileOperator {
     @Test
     public void testGetAnimalData() {
         // Act
-        DataSet fetchedData = CFO.getAnimalData(FILE_NAME);
+        DataSet fetchedData = DFO.getAnimalData(FILE_NAME);
         String firstAnimalBreed = fetchedData.getAnimals().get(0).getBreedOrType();
         String secondAnimalName = fetchedData.getAnimals().get(1).getName();
         int amountOfAnimals = fetchedData.getAnimals().size();
