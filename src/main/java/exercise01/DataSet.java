@@ -1,29 +1,33 @@
 package exercise01;
 
+import java.util.ArrayList;
+
 /**
- * Represents a dataSet used as a format of data fetched from the csv file
+ * Represents a dataSet used as a format for data fetched from the csv file together with number of incorrectly provided lines
  *
  * @author andrzejcalka
  * @author =-_-=
- */public final class DataSet {
-    private final String breedOrType ;
-    private final String name;
-    private final int yearOfBirth;
+ */
+public final class DataSet {
+    private final ArrayList<AnimalDataSet> animals;
+    private final int incorrectLines;
 
     /**
      * Constructor of a dataSet containing data from one line of the csv file
+     *
+     * @param animals           first field in dataSet containing list of animals
+     * @param incorrectLines    second field in dataSet number of incorrect fields in file
      */
-    public DataSet(String breedOrType, String name, int yearOfBirth) {
-        this.breedOrType = breedOrType;
-        this.name = name;
-        this.yearOfBirth = yearOfBirth;
+    public DataSet(ArrayList<AnimalDataSet> animals, int incorrectLines) {
+        this.animals = animals;
+        this.incorrectLines = incorrectLines;
     }
 
     /**
      * Getters for this class
+     *
      */
-    public String getBreedOrType() { return breedOrType; }
-    public String getName() { return name; }
-    public int getYearOfBirth() { return yearOfBirth; }
+    public ArrayList<AnimalDataSet> getAnimals() { return animals; }
+    public int getIncorrectLines() { return incorrectLines; }
 }
 
