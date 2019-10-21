@@ -1,6 +1,13 @@
 package exercise01;
 
-public class AnimalHorse extends Animal {
+/**
+ * Extends class Animal and implements Swimmer to represent a horse
+ *
+ * @author andrzejcalka
+ * @author =-_-=
+ */
+public class AnimalHorse extends Animal implements Swimmer {
+
     /**
      * Constructor of an animal
      *

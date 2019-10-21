@@ -1,6 +1,13 @@
 package exercise01;
 
+/**
+ * Extends class Animal to represent a chicken
+ *
+ * @author andrzejcalka
+ * @author =-_-=
+ */
 public class AnimalChicken extends Animal {
+
     /**
      * Constructor of an animal
      *

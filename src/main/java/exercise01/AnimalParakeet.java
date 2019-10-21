@@ -1,6 +1,13 @@
 package exercise01;
 
-public class AnimalParakeet extends Animal{
+/**
+ * Extends class Animal to represent a parakeet
+ *
+ * @author andrzejcalka
+ * @author =-_-=
+ */
+public class AnimalParakeet extends Animal {
+
     /**
      * Constructor of an animal
      *
