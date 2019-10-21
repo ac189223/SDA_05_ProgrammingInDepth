@@ -1,6 +1,8 @@
 package exercise01;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Represents a set of animals stored as instances of the correct subclass of class Animals
@@ -60,8 +62,23 @@ public class AnimalsRegister {
                     break;
             }
         }
+    }
 
+    /**
+     * Printing collection of animals to the console, sorted alphabetically
+     */
+    public void printAlphabetically() {
+        createAnimalsCollection();
+        animals.stream()
+                .sorted(Comparator.comparing(Animal::getName)).collect(Collectors.toList())
+                .forEach(animal -> System.out.println(printDetails(animal)));
+    }
 
+    /**
+     * Printing animal details to the console
+     */
+    public String printDetails(Animal animal) {
+        return animal.getName() + " - " + animal.getBreedOrType() + ", born in " + animal.getYearOfBirth();
     }
 
 }

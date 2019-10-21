@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class TestAnimalsRegister {
     private AnimalsRegister animalsRegister = new AnimalsRegister();
+
     /**
      * Create collection of specific types of animals
      */
@@ -28,4 +29,30 @@ public class TestAnimalsRegister {
         assertEquals(AnimalDolphin.class, fetchedAnimals.get(1).getClass());
         assertEquals(AnimalParakeet.class, fetchedAnimals.get(amountOfAnimals - 1).getClass());
     }
+
+    /**
+     * Prepare printout for one of the animals
+     */
+    @Test
+    public void testPrintDetails() {
+        // Act
+        animalsRegister.createAnimalsCollection();
+        Animal firstAnimal = animalsRegister.getAnimals().get(0);
+        String givenPrintout = animalsRegister.printDetails(firstAnimal);
+        String expectedPrintout = "lucy - golden retriever, born in 2011";
+        // Assert
+        assertEquals(expectedPrintout, givenPrintout);
+    }
+
+    /**
+     * Printout for all of the animals (alphabetically sorted)
+     */
+    @Test
+    public void testPrintAlphabetically() {
+        // Act
+        animalsRegister.printAlphabetically();
+        // Check the console
+
+    }
+
 }
