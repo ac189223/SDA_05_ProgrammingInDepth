@@ -128,6 +128,19 @@ public class AnimalsRegister {
         return filteredAnimals;
     }
 
+    /**
+     * Filtering collection of animals to create swimmers collection
+     *
+     * @return                  ArrayList of swimmers - animals, that their class implements Swimmers interface
+     */
+    public ArrayList<Animal> createSwimmers() {
+        ArrayList<Animal> swimmers = new ArrayList<>();
+        if (getAnimals().size() > 0)
+            swimmers = (ArrayList<Animal>) getAnimals().stream()
+                    .filter(animal -> animal instanceof Swimmer)
+                    .collect(Collectors.toList());
+        return swimmers;
+    }
 
 
 }

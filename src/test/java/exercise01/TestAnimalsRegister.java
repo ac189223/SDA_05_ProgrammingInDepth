@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests of register of animals
@@ -86,4 +87,20 @@ public class TestAnimalsRegister {
         assertEquals(0, filteredByWrongYear.size());
     }
 
+    /**
+     * Creating swimmers collection
+     */
+    @Test
+    public void testCreateSwimmers() {
+        // Act
+        animalsRegister.createAnimalsCollection();
+        ArrayList<Animal> swimmers = animalsRegister.createSwimmers();
+        // Assert
+        assertEquals(5, swimmers.size());
+        assertTrue(swimmers.get(0) instanceof Swimmer);
+        assertTrue(swimmers.get(1) instanceof Swimmer);
+        assertTrue(swimmers.get(2) instanceof Swimmer);
+        assertTrue(swimmers.get(3) instanceof Swimmer);
+        assertTrue(swimmers.get(4) instanceof Swimmer);
+    }
 }
