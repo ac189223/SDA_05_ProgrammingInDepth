@@ -1,7 +1,7 @@
 package exercise01;
 
 /**
- * Represents a animalDataSet used as a format of data fetched from the csv file
+ * Represents an animalDataSet used as a format of data fetched from the csv file
  *
  * @author andrzejcalka
  * @author =-_-=
