@@ -69,9 +69,15 @@ public class AnimalsRegister {
      */
     public void printAlphabetically() {
         createAnimalsCollection();
-        animals.stream()
-                .sorted(Comparator.comparing(Animal::getName)).collect(Collectors.toList())
-                .forEach(animal -> System.out.println(printDetails(animal)));
+        if (animals.size() > 0) {
+            System.out.println("======== Animals sorted alphabetically ========");
+            animals.stream()
+                    .sorted(Comparator.comparing(Animal::getName)).collect(Collectors.toList())
+                    .forEach(animal -> System.out.println(printDetails(animal)));
+            System.out.println("================================== =-_-= ======");
+        } else {
+            System.out.println("Nothing to print");
+        }
     }
 
     /**
