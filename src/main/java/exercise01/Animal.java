@@ -26,7 +26,6 @@ public class Animal {
 
     /**
      * Setters for this class
-     *
      */
     public void setBreedOrType(String breedOrType) { this.breedOrType = breedOrType; }
     public void setName(String name) { this.name = name; }
@@ -34,7 +33,6 @@ public class Animal {
 
     /**
      * Getters for this class
-     *
      */
     public String getBreedOrType() { return breedOrType; }
     public String getName() { return name; }

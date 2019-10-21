@@ -21,7 +21,6 @@ public class TestDataFileOperator {
     public void testGetAnimalDataFromNonExistingFile() {
         // Act
         DataSet fetchedData = DFO.getAnimalData("src/main/java/resources/fakeFile.csv");
-        // Assert
         int amountOfAnimals = fetchedData.getAnimals().size();
         int amountOfIncorrectLines = fetchedData.getIncorrectLines();
         // Assert
