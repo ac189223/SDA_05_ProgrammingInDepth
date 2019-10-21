@@ -1,4 +1,4 @@
-package exercises;
+package lectures;
 
 class Entry {                                                       // object in the chain
     Object key;

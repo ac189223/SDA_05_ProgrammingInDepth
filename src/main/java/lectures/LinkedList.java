@@ -1,4 +1,4 @@
-package exercises;
+package lectures;
 
 class Node {                                                // Elements of our list
     int elem;                                               // Identification

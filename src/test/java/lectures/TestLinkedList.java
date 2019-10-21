@@ -1,4 +1,4 @@
-package exercises;
+package lectures;
 
 import org.junit.Test;
 
