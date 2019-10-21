@@ -2,6 +2,8 @@ package exercise01;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -13,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestDataFileOperator {
     private final DataFileOperator DFO = new DataFileOperator();
     private final String FILE_NAME = "src/main/java/resources/animals.csv";
+    private final String TARGET_FILE_NAME = "src/main/java/resources/swimmers.csv";
+    private AnimalsRegister animalsRegister = new AnimalsRegister();
 
     /**
      * Read data from non existing file
@@ -45,5 +49,17 @@ public class TestDataFileOperator {
         assertEquals("winter", secondAnimalName);
         assertEquals(2010, lastAnimalYearOfBirth);
         assertEquals(2, amountOfIncorrectLines);
+    }
+
+    /**
+     * Write data into target file
+     */
+    @Test
+    public void testOverwriteFile() {
+        // Act
+        animalsRegister.createAnimalsCollection();
+        ArrayList<Animal> swimmers = animalsRegister.createSwimmers();
+        DFO.overwriteFile(TARGET_FILE_NAME, swimmers);
+        // Check the file
     }
 }

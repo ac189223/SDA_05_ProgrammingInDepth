@@ -1,6 +1,9 @@
 package exercise01;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,14 +25,8 @@ public class DataFileOperator {
             YEAR_OF_BIRTH = 2;
 
     /**
-     * Constructor of a ready_to_use reader for csv file
-     *
-     */
-    public DataFileOperator() { }
-
-    /**
      * Method to read data from csv file
-
+     *
      * @param fileName      path and name of the csv file to read from
      * @return              collection of animalDataSets containing data and number of  incorrectly provided lines in the csv file
      */
@@ -86,5 +83,27 @@ public class DataFileOperator {
         }
 
         return new DataSet(animals, incorrectLines);
+    }
+
+    /**
+     * Saving data to file
+     *
+     * @param fileName              name of the target file
+     * @param animals               array with data to be saved
+     */
+    public void overwriteFile(String fileName, ArrayList<Animal> animals) {
+        try {
+            File file = new File(fileName);
+            File temp = new File("_temp_");
+            PrintWriter out = new PrintWriter(new FileWriter(temp));
+            animals.stream()
+                    .map(animal -> animal.getBreedOrType() + "," + animal.getName() + "," + animal.getYearOfBirth())
+                    .forEach(out::println);
+            out.flush();
+            out.close();
+            temp.renameTo(file);
+        } catch (IOException e) {
+            System.out.println("Unable to open " + fileName);
+        }
     }
 }
