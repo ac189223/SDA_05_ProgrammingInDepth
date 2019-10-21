@@ -76,8 +76,10 @@ public class TestAnimalsRegister {
         assertEquals(0, filteredByWrongFieldString.size());
         assertEquals(0, filteredByWrongFieldInt.size());
         assertEquals("winter", filteredByBreed.get(0).getName());
+        assertEquals(AnimalDolphin.class, filteredByBreed.get(0).getClass());
         assertEquals(0, filteredByWrongBreed.size());
         assertEquals("parakeet", filteredByName.get(0).getBreedOrType());
+        assertEquals(AnimalParakeet.class, filteredByName.get(0).getClass());
         assertEquals(0, filteredByWrongName.size());
         assertEquals(2, filteredByYear2010.size());
         assertEquals(1, filteredByYear2011.size());
