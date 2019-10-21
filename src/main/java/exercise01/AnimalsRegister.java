@@ -68,10 +68,9 @@ public class AnimalsRegister {
      * Printing collection of animals to the console, sorted alphabetically
      */
     public void printAlphabetically() {
-        createAnimalsCollection();
-        if (animals.size() > 0) {
+        if (getAnimals().size() > 0) {
             System.out.println("======== Animals sorted alphabetically ========");
-            animals.stream()
+            getAnimals().stream()
                     .sorted(Comparator.comparing(Animal::getName)).collect(Collectors.toList())
                     .forEach(animal -> System.out.println(printDetails(animal)));
             System.out.println("================================== =-_-= ======");
@@ -82,9 +81,53 @@ public class AnimalsRegister {
 
     /**
      * Printing animal details to the console
+     *
+     * @param animal            the animal chosen for printout
+     * @return                  String to be printed
      */
     public String printDetails(Animal animal) {
         return animal.getName() + " - " + animal.getBreedOrType() + ", born in " + animal.getYearOfBirth();
     }
+
+    /**
+     * Filtering collection of animals by breed or name
+     *
+     * @param field             field that will be filtered
+     * @param value             value that will be searched for
+     * @return                  ArrayList of filtered animals
+     */
+    public ArrayList<Animal> filterAnimals(String field, String value) {
+        ArrayList<Animal> filteredAnimals = new ArrayList<>();
+        if (getAnimals().size() > 0) {
+            if (field.equals("breed"))
+                filteredAnimals = (ArrayList<Animal>) getAnimals().stream()
+                        .filter(animal -> animal.getBreedOrType().equals(value))
+                        .collect(Collectors.toList());
+            else if (field.equals("name"))
+                filteredAnimals = (ArrayList<Animal>) getAnimals().stream()
+                        .filter(animal -> animal.getName().equals(value))
+                        .collect(Collectors.toList());
+        }
+        return filteredAnimals;
+    }
+
+    /**
+     * Filtering collection of animals by year
+     *
+     * @param field             field that will be filtered
+     * @param value             value that will be searched for
+     * @return                  ArrayList of filtered animals
+     */
+    public ArrayList<Animal> filterAnimals(String field, int value) {
+        ArrayList<Animal> filteredAnimals = new ArrayList<>();
+        if (getAnimals().size() > 0)
+            if (field.equals("year"))
+                filteredAnimals = (ArrayList<Animal>) getAnimals().stream()
+                        .filter(animal -> animal.getYearOfBirth() == value)
+                        .collect(Collectors.toList());
+        return filteredAnimals;
+    }
+
+
 
 }

@@ -50,9 +50,38 @@ public class TestAnimalsRegister {
     @Test
     public void testPrintAlphabetically() {
         // Act
+        animalsRegister.createAnimalsCollection();
         animalsRegister.printAlphabetically();
         // Check the console
 
+    }
+
+    /**
+     * Filtering methods on the animals
+     */
+    @Test
+    public void testFilterAnimals() {
+        // Act
+        animalsRegister.createAnimalsCollection();
+        ArrayList<Animal> filteredByWrongFieldString = animalsRegister.filterAnimals("size", "dolphin");
+        ArrayList<Animal> filteredByWrongFieldInt = animalsRegister.filterAnimals("size", 10);
+        ArrayList<Animal> filteredByBreed = animalsRegister.filterAnimals("breed", "dolphin");
+        ArrayList<Animal> filteredByWrongBreed = animalsRegister.filterAnimals("breed", "kitty");
+        ArrayList<Animal> filteredByName = animalsRegister.filterAnimals("name", "cleo");
+        ArrayList<Animal> filteredByWrongName = animalsRegister.filterAnimals("name", "carrie");
+        ArrayList<Animal> filteredByYear2010 = animalsRegister.filterAnimals("year", 2010);
+        ArrayList<Animal> filteredByYear2011 = animalsRegister.filterAnimals("year", 2011);
+        ArrayList<Animal> filteredByWrongYear = animalsRegister.filterAnimals("year", 2000);
+        // Assert
+        assertEquals(0, filteredByWrongFieldString.size());
+        assertEquals(0, filteredByWrongFieldInt.size());
+        assertEquals("winter", filteredByBreed.get(0).getName());
+        assertEquals(0, filteredByWrongBreed.size());
+        assertEquals("parakeet", filteredByName.get(0).getBreedOrType());
+        assertEquals(0, filteredByWrongName.size());
+        assertEquals(2, filteredByYear2010.size());
+        assertEquals(1, filteredByYear2011.size());
+        assertEquals(0, filteredByWrongYear.size());
     }
 
 }
