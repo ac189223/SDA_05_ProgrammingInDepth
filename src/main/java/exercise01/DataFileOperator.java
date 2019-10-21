@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @author andrzejcalka
  * @author =-_-=
  */
-public class CsvFileOperator {
+public class DataFileOperator {
     private final String SEPARATOR = ",";
     private static final int NUMBER_OF_FIELDS_EXPECTED = 3;
     private static final int BREED_TYPE = 0,
@@ -25,7 +25,7 @@ public class CsvFileOperator {
      * Constructor of a ready_to_use reader for csv file
      *
      */
-    public CsvFileOperator() { }
+    public DataFileOperator() { }
 
     /**
      * Method to read data from csv file
@@ -39,7 +39,7 @@ public class CsvFileOperator {
          * Function to create dataSets from lines of the csv file
          *
          */
-        Function<String, AnimalDataSet> createSetOfData =
+        Function<String, DataSetAnimal> createSetOfData =
                 record -> {
                     String[] parts = record.split(SEPARATOR);
                     if (parts.length == NUMBER_OF_FIELDS_EXPECTED) {
@@ -47,7 +47,7 @@ public class CsvFileOperator {
                             String breed_type = parts[BREED_TYPE].trim();
                             String name = parts[NAME].trim();
                             int yearOfBirth = Integer.parseInt(parts[YEAR_OF_BIRTH].trim());
-                            return new AnimalDataSet(breed_type, name, yearOfBirth);
+                            return new DataSetAnimal(breed_type, name, yearOfBirth);
                         }
                         catch(NumberFormatException e) {
                             // throw new NumberFormatException("Line has an incorrect value for year of birth:\n    " + record);
@@ -61,7 +61,7 @@ public class CsvFileOperator {
                     }
                 };
 
-        ArrayList<AnimalDataSet> fetchedAnimalsData;
+        ArrayList<DataSetAnimal> fetchedAnimalsData;
         try {
             fetchedAnimalsData = Files.lines(Paths.get(fileName))
                     .filter(record -> record.length() > 0)
@@ -74,7 +74,7 @@ public class CsvFileOperator {
             fetchedAnimalsData = new ArrayList<>();
         }
 
-        ArrayList<AnimalDataSet> animals = new ArrayList<>();
+        ArrayList<DataSetAnimal> animals = new ArrayList<>();
         int incorrectLines = 0;
         if (fetchedAnimalsData.size() != 0) {
             animals = fetchedAnimalsData.stream()

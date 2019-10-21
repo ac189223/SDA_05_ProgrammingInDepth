@@ -6,7 +6,7 @@ package exercise01;
  * @author andrzejcalka
  * @author =-_-=
  */
-public final class AnimalDataSet {
+public final class DataSetAnimal {
     private final String breedOrType ;
     private final String name;
     private final int yearOfBirth;
@@ -18,7 +18,7 @@ public final class AnimalDataSet {
      * @param name              second field in animalDataSet containing name of an animal
      * @param yearOfBirth       third field in animalDataSet containing year of birth of the animal (four numeric characters)
      */
-    public AnimalDataSet(String breedOrType, String name, int yearOfBirth) {
+    public DataSetAnimal(String breedOrType, String name, int yearOfBirth) {
         this.breedOrType = breedOrType;
         this.name = name;
         this.yearOfBirth = yearOfBirth;

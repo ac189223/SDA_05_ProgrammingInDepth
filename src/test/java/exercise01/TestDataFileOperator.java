@@ -2,13 +2,10 @@ package exercise01;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestCsvFileOperator {
-    private final CsvFileOperator CFO = new CsvFileOperator();
+public class TestDataFileOperator {
+    private final DataFileOperator CFO = new DataFileOperator();
     private final String FILE_NAME = "src/main/java/resources/animals.csv";
 
     /**

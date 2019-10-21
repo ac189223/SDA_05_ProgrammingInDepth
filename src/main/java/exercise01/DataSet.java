@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author =-_-=
  */
 public final class DataSet {
-    private final ArrayList<AnimalDataSet> animals;
+    private final ArrayList<DataSetAnimal> animals;
     private final int incorrectLines;
 
     /**
@@ -18,7 +18,7 @@ public final class DataSet {
      * @param animals           first field in dataSet containing list of animals
      * @param incorrectLines    second field in dataSet number of incorrect fields in file
      */
-    public DataSet(ArrayList<AnimalDataSet> animals, int incorrectLines) {
+    public DataSet(ArrayList<DataSetAnimal> animals, int incorrectLines) {
         this.animals = animals;
         this.incorrectLines = incorrectLines;
     }
@@ -27,7 +27,7 @@ public final class DataSet {
      * Getters for this class
      *
      */
-    public ArrayList<AnimalDataSet> getAnimals() { return animals; }
+    public ArrayList<DataSetAnimal> getAnimals() { return animals; }
     public int getIncorrectLines() { return incorrectLines; }
 }
 
