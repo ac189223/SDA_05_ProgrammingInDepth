@@ -32,17 +32,17 @@ public class XMLReader {
     /**
      * Read data from XML file
      *
-     * @param configFile            XML file to read data from
+     * @param xmlFileName            XML file to read data from
      * @return                      dataSet of read records
      */
     @SuppressWarnings({ "unchecked", "null" })
-    public DataSet readConfig(String configFile) {
+    public DataSet readXmlFile(String xmlFileName) {
         DataSet dataSet = new DataSet();
         try {
             // First, create a new XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // Setup a new eventReader
-            InputStream in = new FileInputStream(configFile);
+            InputStream in = new FileInputStream(xmlFileName);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
             Bar bar = new Bar();

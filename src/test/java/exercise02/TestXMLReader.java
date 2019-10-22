@@ -20,7 +20,7 @@ public class TestXMLReader {
         // Arrange
         XMLReader xmlReader = new XMLReader();
         // Act
-        DataSet fetchedData = xmlReader.readConfig("src/main/java/exercise02/bars.xml");
+        DataSet fetchedData = xmlReader.readXmlFile("src/main/java/exercise02/bars.xml");
         String firstBarFett = fetchedData.getBars().get(0).getFett();
         String firstReviewScore = fetchedData.getReviews().get(0).getScore();
         // Assert
