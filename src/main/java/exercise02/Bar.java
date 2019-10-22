@@ -8,6 +8,7 @@ package exercise02;
  */
 public class Bar {
     private String SN;
+    private String name;
     private String fett;
     private String energy;
     private String kolhydrat;
@@ -18,6 +19,7 @@ public class Bar {
      * Getters for this class
      */
     public String getSN() { return SN; }
+    public String getName() { return name; }
     public String getFett() { return fett; }
     public String getEnergy() { return energy; }
     public String getKolhydrat() { return kolhydrat; }
@@ -28,6 +30,7 @@ public class Bar {
      * Setters for this class
      */
     public void setSN(String SN) { this.SN = SN; }
+    public void setName(String name) { this.name = name; }
     public void setFett(String fett) { this.fett = fett; }
     public void setEnergy(String energy) { this.energy = energy; }
     public void setKolhydrat(String kolhydrat) { this.kolhydrat = kolhydrat; }
@@ -36,7 +39,7 @@ public class Bar {
 
     @Override
     public String toString() {
-        return "Bar [SN=" + SN + ", fett=" + fett + ", energy=" + energy +
+        return "Bar [SN=" + SN + ", name=" + name + ", fett=" + fett + ", energy=" + energy +
                 ", kolhydrat=" + kolhydrat + ", protein=" + protein + ", fiber=" + fiber + "]";
     }
 }

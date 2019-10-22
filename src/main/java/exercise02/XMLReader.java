@@ -58,6 +58,7 @@ public class XMLReader {
                             .substring(startElementBar.getName().getLocalPart().length() - 3)
                             .equals(BAR)) {
                         bar = new Bar();
+                        bar.setName(startElementBar.getName().getLocalPart());
                         // We read the attributes from this tag and add the SN attribute to our object
                         Iterator<Attribute> attributes = startElementBar.getAttributes();
                         while (attributes.hasNext()) {
