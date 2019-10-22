@@ -10,9 +10,7 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Read XML file and creates list of bars
@@ -47,8 +45,8 @@ public class XMLReader {
             InputStream in = new FileInputStream(configFile);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             // read the XML document
-            Bar bar = null;
-            Review review = null;
+            Bar bar = new Bar();
+            Review review = new Review();
 
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
@@ -96,7 +94,8 @@ public class XMLReader {
                         continue;
                     }
 
-                    if (!bar.getSN().equals("")) {
+                    if (bar.getSN() != null && bar.getFett() != null && bar.getEnergy() != null &&
+                            bar.getKolhydrat() != null && bar.getProtein() != null && bar.getFiber() != null) {
                         if (event.isStartElement()) {
                             StartElement startElementReview = event.asStartElement();
                             // If we have a review element, we create a new review
@@ -124,20 +123,15 @@ public class XMLReader {
                                 continue;
                             }
                         }
-                        // If we reach the end of a review element, we add it to the list
-                        if (event.isEndElement()) {
-                            EndElement endElement = event.asEndElement();
-                            if (endElement.getName().getLocalPart()
-                                    .substring(endElement.getName().getLocalPart().length() - 3)
-                                    .equals(REVIEWER)) {
-                                dataSet.getReviews().add(review);
-                            }
-                        }
                     }
                 }
-                // If we reach the end of a bar element, we add it to the list
                 if (event.isEndElement()) {
                     EndElement endElement = event.asEndElement();
+                    // If we reach the end of a review element, we add it to the list
+                    if (endElement.getName().getLocalPart().equals(REVIEWER)) {
+                        dataSet.getReviews().add(review);
+                    }
+                    // If we reach the end of a bar element, we add it to the list
                     if (endElement.getName().getLocalPart()
                             .substring(endElement.getName().getLocalPart().length() - 3)
                             .equals(BAR)) {
@@ -146,9 +140,7 @@ public class XMLReader {
                 }
 
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
+        } catch (FileNotFoundException | XMLStreamException e) {
             e.printStackTrace();
         }
         return dataSet;

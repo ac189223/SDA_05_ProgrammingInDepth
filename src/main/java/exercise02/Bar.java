@@ -37,6 +37,6 @@ public class Bar {
     @Override
     public String toString() {
         return "Bar [SN=" + SN + ", fett=" + fett + ", energy=" + energy +
-                ", kolhydrat=" + kolhydrat + ", protein=" + protein + "]";
+                ", kolhydrat=" + kolhydrat + ", protein=" + protein + ", fiber=" + fiber + "]";
     }
 }
