@@ -21,10 +21,10 @@ public class TestXMLReader {
         XMLReader xmlReader = new XMLReader();
         // Act
         DataSet fetchedData = xmlReader.readXmlFile("src/main/java/exercise02/bars.xml");
-        String firstBarFett = fetchedData.getBars().get(0).getFett();
+        double firstBarFett = fetchedData.getBars().get(0).getFett();
         String firstReviewScore = fetchedData.getReviews().get(0).getScore();
         // Assert
-        assertEquals("19.57", firstBarFett);
+        assertEquals(19.57, firstBarFett);
         assertEquals("3", firstReviewScore);
     }
 }
