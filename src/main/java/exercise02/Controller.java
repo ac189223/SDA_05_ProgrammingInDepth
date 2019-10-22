@@ -1,8 +1,10 @@
 package exercise02;
 
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Class to control the flow
@@ -44,6 +46,37 @@ public class Controller {
             } catch (Exception e) {
                 chosen = 0;
             }
-
+        proceed(chosen);
     }
+
+    private void proceed(int chosen) {
+        switch (chosen) {
+            case 1:
+                printoutAllNames();
+                break;
+            case 2:
+                printoutSortedOnProtein();
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+        }
+    }
+
+    private void printoutAllNames() {
+        dataSet.getBars().stream().map(Bar::getName).distinct().sorted()
+                .forEach(System.out::println);
+    }
+
+    private void printoutSortedOnProtein() {
+        dataSet.getBars().stream()
+                .sorted(Comparator.comparing(Bar::getName)).collect(Collectors.toList())
+                .stream()
+                .sorted(Comparator.comparing(Bar::getProtein)).collect(Collectors.toList())
+                .forEach(bar -> System.out.println(bar.getName() + " - " + bar.getProtein()));
+    }
+
 }

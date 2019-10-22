@@ -70,33 +70,33 @@ public class XMLReader {
                     if (event.isStartElement()) {
                         if (event.asStartElement().getName().getLocalPart().equals(FETT)) {
                             event = eventReader.nextEvent();
-                            bar.setFett(event.asCharacters().getData());
+                            bar.setFett(Double.parseDouble(event.asCharacters().getData()));
                             continue;
                         }
                     }
                     if (event.asStartElement().getName().getLocalPart().equals(ENERGY)) {
                         event = eventReader.nextEvent();
-                        bar.setEnergy(event.asCharacters().getData());
+                        bar.setEnergy(Double.parseDouble(event.asCharacters().getData()));
                         continue;
                     }
                     if (event.asStartElement().getName().getLocalPart().equals(KOLHYDRAT)) {
                         event = eventReader.nextEvent();
-                        bar.setKolhydrat(event.asCharacters().getData());
+                        bar.setKolhydrat(Double.parseDouble(event.asCharacters().getData()));
                         continue;
                     }
                     if (event.asStartElement().getName().getLocalPart().equals(PROTEIN)) {
                         event = eventReader.nextEvent();
-                        bar.setProtein(event.asCharacters().getData());
+                        bar.setProtein(Double.parseDouble(event.asCharacters().getData()));
                         continue;
                     }
                     if (event.asStartElement().getName().getLocalPart().equals(FIBER)) {
                         event = eventReader.nextEvent();
-                        bar.setFiber(event.asCharacters().getData());
+                        bar.setFiber(Double.parseDouble(event.asCharacters().getData()));
                         continue;
                     }
 
-                    if (bar.getSN() != null && bar.getFett() != null && bar.getEnergy() != null &&
-                            bar.getKolhydrat() != null && bar.getProtein() != null && bar.getFiber() != null) {
+                    if (bar.getSN() != null && bar.getFett() != 0 && bar.getEnergy() != 0 &&
+                            bar.getKolhydrat() != 0 && bar.getProtein() != 0 && bar.getFiber() != 0) {
                         if (event.isStartElement()) {
                             StartElement startElementReview = event.asStartElement();
                             // If we have a review element, we create a new review

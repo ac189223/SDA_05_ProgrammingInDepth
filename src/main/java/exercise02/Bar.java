@@ -9,33 +9,33 @@ package exercise02;
 public class Bar {
     private String SN;
     private String name;
-    private String fett;
-    private String energy;
-    private String kolhydrat;
-    private String protein;
-    private String fiber;
+    private double fett;
+    private double energy;
+    private double kolhydrat;
+    private double protein;
+    private double fiber;
 
     /**
      * Getters for this class
      */
     public String getSN() { return SN; }
     public String getName() { return name; }
-    public String getFett() { return fett; }
-    public String getEnergy() { return energy; }
-    public String getKolhydrat() { return kolhydrat; }
-    public String getProtein() { return protein; }
-    public String getFiber() { return fiber; }
+    public double getFett() { return fett; }
+    public double getEnergy() { return energy; }
+    public double getKolhydrat() { return kolhydrat; }
+    public double getProtein() { return protein; }
+    public double getFiber() { return fiber; }
 
     /**
      * Setters for this class
      */
     public void setSN(String SN) { this.SN = SN; }
     public void setName(String name) { this.name = name; }
-    public void setFett(String fett) { this.fett = fett; }
-    public void setEnergy(String energy) { this.energy = energy; }
-    public void setKolhydrat(String kolhydrat) { this.kolhydrat = kolhydrat; }
-    public void setProtein(String protein) { this.protein = protein; }
-    public void setFiber(String fiber) { this.fiber = fiber; }
+    public void setFett(double fett) { this.fett = fett; }
+    public void setEnergy(double energy) { this.energy = energy; }
+    public void setKolhydrat(double kolhydrat) { this.kolhydrat = kolhydrat; }
+    public void setProtein(double protein) { this.protein = protein; }
+    public void setFiber(double fiber) { this.fiber = fiber; }
 
     @Override
     public String toString() {
