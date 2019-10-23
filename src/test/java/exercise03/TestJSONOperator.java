@@ -23,7 +23,7 @@ public class TestJSONOperator {
         // Arrange
         MemberRegister memberRegister;
         // Act
-        memberRegister = jsonOperator.readFromJSON(fileName);
+        memberRegister = jsonOperator.readMembersFromJSON(fileName);
         int amountOfMembers = memberRegister.getMembers().size();
         String firstMemberName = memberRegister.getMembers().get(0).getName();
         String secondMemberId = memberRegister.getMembers().get(1).getId();
@@ -33,7 +33,7 @@ public class TestJSONOperator {
         assertEquals("8c48", secondMemberId);
 
         // Act
-        memberRegister = jsonOperator.readFromJSON("src/main/java/exercise03/fakeFile.json");
+        memberRegister = jsonOperator.readMembersFromJSON("src/main/java/exercise03/fakeFile.json");
         int amountOfMembersFromFakeFile = memberRegister.getMembers().size();
         // Assert
         assertEquals(0, amountOfMembersFromFakeFile);

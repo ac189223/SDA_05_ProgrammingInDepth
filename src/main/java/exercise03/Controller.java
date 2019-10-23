@@ -1,13 +1,17 @@
 package exercise03;
 
+import java.rmi.server.ServerCloneException;
+import java.util.ArrayList;
+
 /**
  * Controls the flow of the application
  */
 public class Controller {
     private static final Controller CON = new Controller();
     private final JSONOperator JSON_OPERATOR = new JSONOperator();
-    private final String FILE_NAME = "src/main/java/exercise03/memberList.json";
-    private final View VIEW = new View();
+    private final String FILE_NAME_MEMBERS = "src/main/java/exercise03/memberList.json";
+    private final String FILE_NAME_ATTENDANCE = "src/main/java/exercise03/attendance.json";
+    private AttendanceRegister attendanceRegister = new AttendanceRegister();
     private MemberRegister memberRegister = new MemberRegister();
 
     /**
@@ -15,14 +19,16 @@ public class Controller {
      */
     public static Controller getCON() { return CON; }
     public JSONOperator getJSON_OPERATOR() { return JSON_OPERATOR; }
-    public String getFILE_NAME() { return FILE_NAME; }
-    public View getVIEW() { return VIEW; }
+    public String getFILE_NAME_MEMBERS() { return FILE_NAME_MEMBERS; }
+    public String getFILE_NAME_ATTENDANCE() { return FILE_NAME_ATTENDANCE; }
+    public AttendanceRegister getAttendanceRegister() { return attendanceRegister; }
     public MemberRegister getMemberRegister() { return memberRegister; }
 
     /**
      * Setter for this class
      */
     public void setMemberRegister(MemberRegister memberRegister) { this.memberRegister = memberRegister; }
+    public void setAttendanceRegister(AttendanceRegister attendanceRegister) { this.attendanceRegister = attendanceRegister; }
 
     /**
      * Main method of the application
@@ -30,13 +36,14 @@ public class Controller {
      * @param args  not used
      */
     public static void main(String[] args) throws Exception {
-        getCON().setMemberRegister(getCON().getJSON_OPERATOR().readFromJSON(getCON().getFILE_NAME()));
+        View view = new View();
+        getCON().setMemberRegister(getCON().getJSON_OPERATOR().readMembersFromJSON(getCON().getFILE_NAME_MEMBERS()));
+        getCON().setAttendanceRegister(getCON().getJSON_OPERATOR().readAttendanceFromJSON(getCON().getFILE_NAME_ATTENDANCE()));
         if (!getCON().checkIds()) {
-            getCON().getVIEW().idNotUniqueMessage();
+            view.idNotUniqueMessage();
             System.exit(0);
         }
-        getCON().getVIEW().checkAttendance(getCON().getMemberRegister());
-
+        view.checkAttendance(getCON());
     }
 
     /**
@@ -57,4 +64,24 @@ public class Controller {
         return checkIds(getMemberRegister());
     }
 
+    /**
+     * Adding list of attendance to the register, after removing possibly existing old record with same date
+     *
+     * @param listOfAttendance  list to be saved
+     */
+    public void addAttendance(ArrayList<String> listOfAttendance) {
+        for (ArrayList<String> attendance: getAttendanceRegister().getAttendance())
+            if (attendance.get(0).equals(listOfAttendance.get(0))) {
+                getAttendanceRegister().getAttendance().remove(attendance);
+                break;
+            }
+        getAttendanceRegister().getAttendance().add(listOfAttendance);
+        saveAndClose();
+    }
+
+    public void saveAndClose() {
+        getCON().getJSON_OPERATOR().writeMembersToJSON(getCON().getFILE_NAME_MEMBERS(), getCON().getMemberRegister());
+        getCON().getJSON_OPERATOR().writeAttendanceToJSON(getCON().getFILE_NAME_ATTENDANCE(), getCON().getAttendanceRegister());
+        System.exit(0);
+    }
 }
