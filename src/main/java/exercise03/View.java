@@ -3,6 +3,9 @@ package exercise03;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -42,11 +45,22 @@ public class View {
         panel.setLayout(new javax.swing.BoxLayout(panel, javax.swing.BoxLayout.Y_AXIS));
         frame.add(panel);
 
-
+        ArrayList<JCheckBox> checkBoxes = new ArrayList<>();
         memberRegister.getMembers().forEach(member -> {
             JCheckBox checkBox = new JCheckBox(member.getName());
+            checkBoxes.add(checkBox);
             panel.add(checkBox);
         });
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                //CON.saveAttendance();
+            }
+        });
+        panel.add(saveButton);
+
 
         frame.pack();
         frame.setLocationByPlatform(true);
