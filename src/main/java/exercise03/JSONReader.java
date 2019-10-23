@@ -11,7 +11,7 @@ public class JSONReader {
 
     public MemberRegister readFromJSON(String fileName) {
         Gson gson = new Gson();
-        MemberRegister memberRegister = new MemberRegister();
+        MemberRegister memberRegister;
 
         try (Reader reader = new FileReader(fileName)) {
             // Convert JSON file to Java object

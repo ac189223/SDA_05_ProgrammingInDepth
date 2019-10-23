@@ -2,10 +2,7 @@ package exercise03;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestJSONReader {
     private JSONReader jsonReader = new JSONReader();
