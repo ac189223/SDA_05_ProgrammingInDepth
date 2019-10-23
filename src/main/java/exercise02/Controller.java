@@ -148,6 +148,7 @@ public class Controller {
             } catch (Exception e) {
                 reviewerId = "";
             }
+
         String finalReviewerId = reviewerId;
         List<String> barsSN =dataSet.getReviews().stream()
                 .filter(review -> review.getPersonID().equals(finalReviewerId))

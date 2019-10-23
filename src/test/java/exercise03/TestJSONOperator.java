@@ -5,10 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Representing tests for operations on JSON file
+ * Tests for operations on JSON file
+ *
+ * @author andrzejcalka
+ * @author =-_-=
  */
 public class TestJSONOperator {
     private JSONOperator jsonOperator = new JSONOperator();
+    private final String fileName = "src/main/java/exercise03/memberList.json";
 
     /**
      * Test of reading from provided file
@@ -19,7 +23,7 @@ public class TestJSONOperator {
         // Arrange
         MemberRegister memberRegister;
         // Act
-        memberRegister = jsonOperator.readFromJSON("src/main/java/exercise03/memberList.json");
+        memberRegister = jsonOperator.readFromJSON(fileName);
         int amountOfMembers = memberRegister.getMembers().size();
         String firstMemberName = memberRegister.getMembers().get(0).getName();
         String secondMemberId = memberRegister.getMembers().get(1).getId();
