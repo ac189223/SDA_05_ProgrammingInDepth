@@ -6,9 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class JSONReader {
-    private final String FILE_NAME = "src/main/java/exercise03/memberList.json";
+/**
+ * Represents operations possible to provide for an JSON file
+ */
+public class JSONOperator {
 
+    /**
+     * Rearing data from JSON file containing list of members
+     *
+     * @param fileName  name of the file with members data
+     * @return          read data in MemberRegister format
+     */
     public MemberRegister readFromJSON(String fileName) {
         Gson gson = new Gson();
         MemberRegister memberRegister;
