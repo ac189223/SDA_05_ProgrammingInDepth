@@ -19,7 +19,7 @@ public class JSONReader {
             // Print MemberRegister object
             // memberRegister.getMembers().forEach(member -> System.out.println(member.getId() + " - " + member.getName()));
         } catch (IOException e) {
-            e.printStackTrace();
+            memberRegister = new MemberRegister();
         }
     return memberRegister;
     }

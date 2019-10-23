@@ -2,11 +2,18 @@ package exercise03;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestJSONReader {
     private JSONReader jsonReader = new JSONReader();
 
+    /**
+     * Test of reading from provided file
+     * Test of reading from non existing file
+     */
     @Test
     public void testReadFromJSON() {
         // Arrange
@@ -20,5 +27,11 @@ public class TestJSONReader {
         assertEquals(8, amountOfMembers);
         assertEquals("David Yu", firstMemberName);
         assertEquals("8c48", secondMemberId);
+
+        // Act
+        memberRegister = jsonReader.readFromJSON("src/main/java/exercise03/fakeFile.json");
+        int amountOfMembersFromFakeFile = memberRegister.getMembers().size();
+        // Assert
+        assertEquals(0, amountOfMembersFromFakeFile);
     }
 }
