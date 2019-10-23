@@ -4,17 +4,19 @@ package exercise03;
  * Controls the flow of the application
  */
 public class Controller {
-    private static final Controller con = new Controller();
-    private final JSONOperator jsonOperator = new JSONOperator();
+    private static final Controller CON = new Controller();
+    private final JSONOperator JSON_OPERATOR = new JSONOperator();
     private final String FILE_NAME = "src/main/java/exercise03/memberList.json";
+    private final View VIEW = new View();
     private MemberRegister memberRegister = new MemberRegister();
 
     /**
      * Getters for this class
      */
-    public static Controller getCon() { return con; }
-    public JSONOperator getJsonOperator() { return jsonOperator; }
+    public static Controller getCON() { return CON; }
+    public JSONOperator getJSON_OPERATOR() { return JSON_OPERATOR; }
     public String getFILE_NAME() { return FILE_NAME; }
+    public View getVIEW() { return VIEW; }
     public MemberRegister getMemberRegister() { return memberRegister; }
 
     /**
@@ -28,10 +30,12 @@ public class Controller {
      * @param args  not used
      */
     public static void main(String[] args) throws Exception {
-        getCon().setMemberRegister(getCon().getJsonOperator().readFromJSON(getCon().getFILE_NAME()));
-        if (!getCon().checkIds()) {
-            throw new Exception("Provided Id values are not unique. File not accepted");
+        getCON().setMemberRegister(getCON().getJSON_OPERATOR().readFromJSON(getCON().getFILE_NAME()));
+        if (!getCON().checkIds()) {
+            getCON().getVIEW().idNotUniqueMessage();
+            System.exit(0);
         }
+        getCON().getVIEW().checkAttendance(getCON().getMemberRegister());
 
     }
 
@@ -49,6 +53,8 @@ public class Controller {
             check = false;
         return check;
     }
-    public boolean checkIds() { return checkIds(getMemberRegister()); }
+    public boolean checkIds() {
+        return checkIds(getMemberRegister());
+    }
 
 }
