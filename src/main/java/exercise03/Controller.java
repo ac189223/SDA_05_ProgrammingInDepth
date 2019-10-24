@@ -1,6 +1,5 @@
 package exercise03;
 
-import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +42,40 @@ public class Controller {
             view.idNotUniqueMessage();
             System.exit(0);
         }
-        view.checkAttendance(getCON());
+        getCON().chooseActivity();
+    }
+
+    /**
+     * Choose of activity to do
+     */
+    public void chooseActivity() {
+        View view = new View();
+        int option;
+        while (true) {
+            option = view.chooseOption();
+            switch (option) {
+                case 6:     // Exit program
+                    getCON().saveAndClose();
+                case 5:     // Check attendance for today
+                    view.checkAttendance(getCON());
+                    break;
+                case 4:     // Edit past attendance
+                    view.editPastAttendance(getCON());
+                    break;
+                case 3:     // Add member
+                    view.addMember(getCON());
+                    break;
+                case 2:     // Edit member
+                    view.editMember(getCON());
+                    break;
+                case 1:     // Remove member
+                    view.deleteMember(getCON());
+                    break;
+                case 0:     // Statistics
+                    view.stats(getCON());
+                    break;
+            }
+        }
     }
 
     /**
@@ -79,6 +111,9 @@ public class Controller {
         saveAndClose();
     }
 
+    /**
+     * Save data to JSON files and quit
+     */
     public void saveAndClose() {
         getCON().getJSON_OPERATOR().writeMembersToJSON(getCON().getFILE_NAME_MEMBERS(), getCON().getMemberRegister());
         getCON().getJSON_OPERATOR().writeAttendanceToJSON(getCON().getFILE_NAME_ATTENDANCE(), getCON().getAttendanceRegister());
