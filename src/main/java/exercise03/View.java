@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.swing.JCheckBox;
@@ -70,7 +69,7 @@ public class View {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 con.addAttendance(saveAttendance());
-                frame.dispose();
+                frame.setVisible(false);
             }
 
             /**
@@ -315,4 +314,3 @@ public class View {
         frame.setVisible(true);
     }
 }
-

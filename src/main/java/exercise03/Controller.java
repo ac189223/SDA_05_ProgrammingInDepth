@@ -108,7 +108,6 @@ public class Controller {
                 break;
             }
         getAttendanceRegister().getAttendance().add(listOfAttendance);
-        saveAndClose();
     }
 
     /**
