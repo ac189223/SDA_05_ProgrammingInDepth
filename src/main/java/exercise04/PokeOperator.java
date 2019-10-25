@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -248,12 +249,46 @@ public class PokeOperator {
         StringBuilder printout = new StringBuilder();
         printout.append("Type: ");
         JsonArray types = jsonObject.get("types").getAsJsonArray();
-        
+        ArrayList<String> typesList = new ArrayList<>();
         for (int i = 0; i < types.size(); i++) {
             if (i > 0)
                 printout.append(", ");
             printout.append(types.get(i).getAsJsonObject().get("type").getAsJsonObject().get("name"));
+            typesList.add(types.get(i).getAsJsonObject().get("type").getAsJsonObject().get("name").getAsString());
         }
+        PokeTypeDataSet dataSet = new PokeTypeDataSet();
+        for (String t:typesList) {
+            makeJsonPrettyToFile(makeHTTPRequest("type/" + t));
+            jsonObject = (JsonObject) readJson(FILE_POKE);
+            JsonArray proAttacks = jsonObject.get("damage_relations").getAsJsonObject().get("double_damage_to").getAsJsonArray();
+            for (int i = 0; i < proAttacks.size(); i++)
+                if (!dataSet.getProAttack().contains(proAttacks.get(i).getAsJsonObject().get("name").getAsString()))
+                    dataSet.getProAttack().add(proAttacks.get(i).getAsJsonObject().get("name").getAsString());
+            JsonArray poorAttacks = jsonObject.get("damage_relations").getAsJsonObject().get("no_damage_to").getAsJsonArray();
+            for (int i = 0; i < poorAttacks.size(); i++)
+                if (!dataSet.getPoorAttack().contains(poorAttacks.get(i).getAsJsonObject().get("name").getAsString()))
+                    dataSet.getPoorAttack().add(poorAttacks.get(i).getAsJsonObject().get("name").getAsString());
+            JsonArray proDefence = jsonObject.get("damage_relations").getAsJsonObject().get("no_damage_from").getAsJsonArray();
+            for (int i = 0; i < proDefence.size(); i++)
+                if (!dataSet.getProDefence().contains(proDefence.get(i).getAsJsonObject().get("name").getAsString()))
+                    dataSet.getProDefence().add(proDefence.get(i).getAsJsonObject().get("name").getAsString());
+            JsonArray poorDefence = jsonObject.get("damage_relations").getAsJsonObject().get("double_damage_from").getAsJsonArray();
+            for (int i = 0; i < poorDefence.size(); i++)
+                if (!dataSet.getPoorDefence().contains(poorDefence.get(i).getAsJsonObject().get("name").getAsString()))
+                    dataSet.getPoorDefence().add(poorDefence.get(i).getAsJsonObject().get("name").getAsString());
+        }
+        printout.append("\npro attack against: ");
+        dataSet.getProAttack().forEach(t -> printout.append(t).append(", "));
+        printout.substring(0, printout.length()-2);
+        printout.append("\npoor attack against: ");
+        dataSet.getPoorAttack().forEach(t -> printout.append(t).append(", "));
+        printout.substring(0, printout.length()-2);
+        printout.append("\npro defence against: ");
+        dataSet.getProDefence().forEach(t -> printout.append(t).append(", "));
+        printout.substring(0, printout.length()-2);
+        printout.append("\npoor defence against: ");
+        dataSet.getPoorDefence().forEach(t -> printout.append(t).append(", "));
+        printout.substring(0, printout.length()-2);
         return printout.toString();
     }
 
