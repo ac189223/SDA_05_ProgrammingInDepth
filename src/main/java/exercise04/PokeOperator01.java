@@ -244,12 +244,6 @@ public class PokeOperator01 {
                 jsonObject.get("height") + ", weight " + jsonObject.get("weight");
     }
 
-//    private String filterPrintoutPokemon() throws Exception {
-//        JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
-//        return "Id " + jsonObject.get("id") + " - name " + jsonObject.get("name") + ", height " +
-//                jsonObject.get("height") + ", weight " + jsonObject.get("weight");
-//    }
-
     private String filterPrintoutPokemonType() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
         StringBuilder printout = new StringBuilder();
@@ -449,7 +443,7 @@ public class PokeOperator01 {
                     "poni-coast","poni-gauntlet","seafolk-village","vast-poni-canyon","altar-of-the-sunne","altar-of-the-moone",
                     "ruins-of-hope","resolution-cave","exeggutor-island","battle-tree","aether-paradise","ultra-space",
                     "malie-city--outer-cape").collect(Collectors.toList()).stream().sorted().toArray();
-            locName = (String) JOptionPane.showInputDialog(new JFrame("      =-_-="), "Choose pokemon",
+            locName = (String) JOptionPane.showInputDialog(new JFrame("      =-_-="), "Choose location",
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE, null, locNames, locNames[0]);
             makeJsonPrettyToFile(makeHTTPRequest("location/" + locName));
             ImageIcon pokeApiIcon = new ImageIcon("src/main/java/exercise04/pok/pokeApi.png", "pokeApi");
