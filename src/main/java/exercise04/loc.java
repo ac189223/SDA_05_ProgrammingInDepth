@@ -29,27 +29,29 @@ public class loc {
     public static void main(String[] args) throws Exception {
     String urlString = "";
         for (int i = 1; i < 1000; i++){
-        urlString = "https://pokeapi.co/api/v2/location/" + i + "/";
-        String response = null;
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            Scanner responseScanner = new Scanner(connection.getInputStream());
-            while (responseScanner.hasNext()) {
-                response = responseScanner.nextLine();
+            if (i % 6 == 0)
+                System.out.println();
+            urlString = "https://pokeapi.co/api/v2/location/" + i + "/";
+            String response = null;
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+                Scanner responseScanner = new Scanner(connection.getInputStream());
+                while (responseScanner.hasNext()) {
+                    response = responseScanner.nextLine();
+                }
+                makeJsonPrettyToFile(response);
+                filterPrintoutPokemon();
+            } catch (IOException e) {
             }
-            makeJsonPrettyToFile(response);
-            filterPrintoutPokemon();
-        } catch (IOException e) {
-        }
         }
     }
 
     private static void filterPrintoutPokemon() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
-        System.out.println("" + jsonObject.get("name") + ",");
+        System.out.print("" + jsonObject.get("name") + ",");
     }
 
     public static Object readJson(String filename) throws Exception {
