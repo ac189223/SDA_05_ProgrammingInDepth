@@ -262,7 +262,7 @@ public class PokeOperator {
                     "malie-city--outer-cape").collect(Collectors.toList()).stream().sorted().toArray();
             locName = (String) JOptionPane.showInputDialog(new JFrame("      =-_-="), "Choose pokemon",
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE, null, locNames, locNames[0]);
-            makeJsonPrettyToFile(makeHTTPRequest(locName.toLowerCase()));
+            makeJsonPrettyToFile(makeHTTPRequest("location/" + locName));
             JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutLocation(),
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE);
         }
@@ -277,9 +277,9 @@ public class PokeOperator {
         for (int i = 0; i < names.size(); i++) {
             if (i > 0)
                 printout.append(", ");
-            printout.append(names.get(i).getAsJsonArray().get(1));
+            printout.append(names.get(i).getAsJsonObject().get("name"));
         }
-        printout.append("), region ").append(jsonObject.get("region").getAsJsonArray().get(0));
+        printout.append("), region ").append(jsonObject.get("region").getAsJsonObject().get("name"));
         return printout.toString();
     }
 
