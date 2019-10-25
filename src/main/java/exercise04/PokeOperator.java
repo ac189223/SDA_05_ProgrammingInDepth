@@ -24,8 +24,8 @@ public class PokeOperator {
                 chosenOption = JOptionPane.showOptionDialog(new JFrame("      =-_-="),
                         "Please choose what to do" +
                                 "\n1: Search pokemon by name" +
-                                "\n2: Edit location names " +
-                                "\n3: " +
+                                "\n2: Search pokemons' type" +
+                                "\n3: Search location by name" +
                                 "\n4: Exit the program",
                         "      =-_-=",
                         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -33,17 +33,17 @@ public class PokeOperator {
                 case 0:
                     System.exit(0);
                 case 1:
-                case 2:
                     PO.locationCheck();
                     break;
+                case 2:
                 case 3:
-                    PO.pokeSearch();
+                    PO.pokeSearch(chosenOption);
                     break;
             }
         }
     }
 
-    public void pokeSearch() throws Exception {
+    public void pokeSearch(int chosenOption) throws Exception {
         String pokeName = "";
         do {
             pokeName = JOptionPane.showInputDialog(new JFrame("      =-_-="), "Enter name of a pokemon",
@@ -200,8 +200,12 @@ public class PokeOperator {
             } catch (NullPointerException en) {
                 pokeIcon = new ImageIcon("src/main/java/exercise04/pok/" + pokeName + ".jpg", pokeName);
             }
-            JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutPokemon(),
-                    "      =-_-=", JOptionPane.PLAIN_MESSAGE, pokeIcon);
+            if (chosenOption == 2)
+                JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutPokemonType(),
+                        "      =-_-=", JOptionPane.PLAIN_MESSAGE, pokeIcon);
+            else if (chosenOption == 3)
+                JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutPokemon(),
+                        "      =-_-=", JOptionPane.PLAIN_MESSAGE, pokeIcon);
         }
     }
 
@@ -237,6 +241,20 @@ public class PokeOperator {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
         return "Id " + jsonObject.get("id") + " - name " + jsonObject.get("name") + ", height " +
                 jsonObject.get("height") + ", weight " + jsonObject.get("weight");
+    }
+
+    private String filterPrintoutPokemonType() throws Exception {
+        JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
+        StringBuilder printout = new StringBuilder();
+        printout.append("Type: ");
+        JsonArray types = jsonObject.get("types").getAsJsonArray();
+        
+        for (int i = 0; i < types.size(); i++) {
+            if (i > 0)
+                printout.append(", ");
+            printout.append(types.get(i).getAsJsonObject().get("type").getAsJsonObject().get("name"));
+        }
+        return printout.toString();
     }
 
     public Object readJson(String filename) throws Exception {
@@ -403,7 +421,7 @@ public class PokeOperator {
     private String filterPrintoutLocation() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
         StringBuilder printout = new StringBuilder();
-        printout.append("\nId ").append(jsonObject.get("id")).append(" - name ").append(jsonObject.get("name")).append("(");
+        printout.append("Id ").append(jsonObject.get("id")).append(" - name ").append(jsonObject.get("name")).append("(");
         JsonArray names = jsonObject.get("names").getAsJsonArray();
         for (int i = 0; i < names.size(); i++) {
             if (i > 0)
