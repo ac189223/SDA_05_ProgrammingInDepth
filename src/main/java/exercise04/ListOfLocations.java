@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class locList {
+public class ListOfLocations {
     private static final String FILE_POKE = "src/main/java/exercise04/poke.json";
 
     public static void makeJsonPrettyToFile(String uglyJson) {

@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class pokList {
+public class ListOfPokemons {
     private static final String FILE_POKE = "src/main/java/exercise04/poke.json";
 
     public static void makeJsonPrettyToFile(String uglyJson) {

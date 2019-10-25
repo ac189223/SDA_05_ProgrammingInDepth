@@ -13,8 +13,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PokeOperator {
-    private static final PokeOperator PO = new PokeOperator();
+public class PokeOperator01 {
+    private static final PokeOperator01 PO = new PokeOperator01();
     private static final String FILE_POKE = "src/main/java/exercise04/poke.json";
 
     public static void main(String[] args) throws Exception {
@@ -243,6 +243,12 @@ public class PokeOperator {
         return "Id " + jsonObject.get("id") + " - name " + jsonObject.get("name") + ", height " +
                 jsonObject.get("height") + ", weight " + jsonObject.get("weight");
     }
+
+//    private String filterPrintoutPokemon() throws Exception {
+//        JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
+//        return "Id " + jsonObject.get("id") + " - name " + jsonObject.get("name") + ", height " +
+//                jsonObject.get("height") + ", weight " + jsonObject.get("weight");
+//    }
 
     private String filterPrintoutPokemonType() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
