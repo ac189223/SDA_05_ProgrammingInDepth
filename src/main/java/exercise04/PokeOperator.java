@@ -3,18 +3,17 @@ package exercise04;
 import com.google.gson.*;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PokeOperator {
+    private static final PokeOperator PO = new PokeOperator();
     private static final String FILE_POKE = "src/main/java/exercise04/poke.json";
 
     public static void main(String[] args) throws Exception {
@@ -35,50 +34,178 @@ public class PokeOperator {
                     System.exit(0);
                 case 1:
                 case 2:
-                    locationCheck();
+                    PO.locationCheck();
                     break;
                 case 3:
-                    pokeSearch();
+                    PO.pokeSearch();
                     break;
             }
         }
     }
 
-    public static void pokeSearch() throws Exception {
-        String pokeName = JOptionPane.showInputDialog(new JFrame("      =-_-="), "Enter name of a pokemon",
-                "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+    public void pokeSearch() throws Exception {
+        String pokeName = "";
+        do {
+            pokeName = JOptionPane.showInputDialog(new JFrame("      =-_-="), "Enter name of a pokemon",
+                    "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+        } while (pokeName == null || pokeName.equals(""));
         try {
             makeJsonPrettyToFile(makeHTTPRequest("pokemon/" + pokeName.toLowerCase()));
             JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutPokemon(),
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE);
         } catch (Exception e) {
-            Object[] pokeNames = Stream.of("Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard",
-                    "Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto",
-                    "Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew",
-                    "Sandslash","Nidoran","Nidorina","Nidoqueen","Nidoran","Nidorino","Nidoking","Clefairy","Clefable",
-                    "Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume",
-                    "Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck",
-                    "Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra",
-                    "Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool",
-                    "Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite",
-                    "Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster",
-                    "Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode",
-                    "Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing"
-                    ,"Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu"
-                    ,"Starmie","Mr. Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp",
-                    "Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar"
-                    ,"Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair"
-                    ,"Dragonite","Mewtwo","Mew","Squirtle","Wartortle").collect(Collectors.toList()).stream()
+            Object[] pokeNames = Stream.of("bulbasaur","ivysaur","venusaur","charmander","charmeleon",
+                    "charizard","squirtle","wartortle","blastoise","caterpie","metapod",
+                    "butterfree","weedle","kakuna","beedrill","pidgey","pidgeotto",
+                    "pidgeot","rattata","raticate","spearow","fearow","ekans",
+                    "arbok","pikachu","raichu","sandshrew","sandslash","nidoran-f",
+                    "nidorina","nidoqueen","nidoran-m","nidorino","nidoking","clefairy",
+                    "clefable","vulpix","ninetales","jigglypuff","wigglytuff","zubat",
+                    "golbat","oddish","gloom","vileplume","paras","parasect",
+                    "venonat","venomoth","diglett","dugtrio","meowth","persian",
+                    "psyduck","golduck","mankey","primeape","growlithe","arcanine",
+                    "poliwag","poliwhirl","poliwrath","abra","kadabra","alakazam",
+                    "machop","machoke","machamp","bellsprout","weepinbell","victreebel",
+                    "tentacool","tentacruel","geodude","graveler","golem","ponyta",
+                    "rapidash","slowpoke","slowbro","magnemite","magneton","farfetchd",
+                    "doduo","dodrio","seel","dewgong","grimer","muk",
+                    "shellder","cloyster","gastly","haunter","gengar","onix",
+                    "drowzee","hypno","krabby","kingler","voltorb","electrode",
+                    "exeggcute","exeggutor","cubone","marowak","hitmonlee","hitmonchan",
+                    "lickitung","koffing","weezing","rhyhorn","rhydon","chansey",
+                    "tangela","kangaskhan","horsea","seadra","goldeen","seaking",
+                    "staryu","starmie","mr-mime","scyther","jynx","electabuzz",
+                    "magmar","pinsir","tauros","magikarp","gyarados","lapras",
+                    "ditto","eevee","vaporeon","jolteon","flareon","porygon",
+                    "omanyte","omastar","kabuto","kabutops","aerodactyl","snorlax",
+                    "articuno","zapdos","moltres","dratini","dragonair","dragonite",
+                    "mewtwo","mew","chikorita","bayleef","meganium","cyndaquil",
+                    "quilava","typhlosion","totodile","croconaw","feraligatr","sentret",
+                    "furret","hoothoot","noctowl","ledyba","ledian","spinarak",
+                    "ariados","crobat","chinchou","lanturn","pichu","cleffa",
+                    "igglybuff","togepi","togetic","natu","xatu","mareep",
+                    "flaaffy","ampharos","bellossom","marill","azumarill","sudowoodo",
+                    "politoed","hoppip","skiploom","jumpluff","aipom","sunkern",
+                    "sunflora","yanma","wooper","quagsire","espeon","umbreon",
+                    "murkrow","slowking","misdreavus","unown","wobbuffet","girafarig",
+                    "pineco","forretress","dunsparce","gligar","steelix","snubbull",
+                    "granbull","qwilfish","scizor","shuckle","heracross","sneasel",
+                    "teddiursa","ursaring","slugma","magcargo","swinub","piloswine",
+                    "corsola","remoraid","octillery","delibird","mantine","skarmory",
+                    "houndour","houndoom","kingdra","phanpy","donphan","porygon2",
+                    "stantler","smeargle","tyrogue","hitmontop","smoochum","elekid",
+                    "magby","miltank","blissey","raikou","entei","suicune",
+                    "larvitar","pupitar","tyranitar","lugia","ho-oh","celebi",
+                    "treecko","grovyle","sceptile","torchic","combusken","blaziken",
+                    "mudkip","marshtomp","swampert","poochyena","mightyena","zigzagoon",
+                    "linoone","wurmple","silcoon","beautifly","cascoon","dustox",
+                    "lotad","lombre","ludicolo","seedot","nuzleaf","shiftry",
+                    "taillow","swellow","wingull","pelipper","ralts","kirlia",
+                    "gardevoir","surskit","masquerain","shroomish","breloom","slakoth",
+                    "vigoroth","slaking","nincada","ninjask","shedinja","whismur",
+                    "loudred","exploud","makuhita","hariyama","azurill","nosepass",
+                    "skitty","delcatty","sableye","mawile","aron","lairon",
+                    "aggron","meditite","medicham","electrike","manectric","plusle",
+                    "minun","volbeat","illumise","roselia","gulpin","swalot",
+                    "carvanha","sharpedo","wailmer","wailord","numel","camerupt",
+                    "torkoal","spoink","grumpig","spinda","trapinch","vibrava",
+                    "flygon","cacnea","cacturne","swablu","altaria","zangoose",
+                    "seviper","lunatone","solrock","barboach","whiscash","corphish",
+                    "crawdaunt","baltoy","claydol","lileep","cradily","anorith",
+                    "armaldo","feebas","milotic","castform","kecleon","shuppet",
+                    "banette","duskull","dusclops","tropius","chimecho","absol",
+                    "wynaut","snorunt","glalie","spheal","sealeo","walrein",
+                    "clamperl","huntail","gorebyss","relicanth","luvdisc","bagon",
+                    "shelgon","salamence","beldum","metang","metagross","regirock",
+                    "regice","registeel","latias","latios","kyogre","groudon",
+                    "rayquaza","jirachi","deoxys-normal","turtwig","grotle","torterra",
+                    "chimchar","monferno","infernape","piplup","prinplup","empoleon",
+                    "starly","staravia","staraptor","bidoof","bibarel","kricketot",
+                    "kricketune","shinx","luxio","luxray","budew","roserade",
+                    "cranidos","rampardos","shieldon","bastiodon","burmy","wormadam-plant",
+                    "mothim","combee","vespiquen","pachirisu","buizel","floatzel",
+                    "cherubi","cherrim","shellos","gastrodon","ambipom","drifloon",
+                    "drifblim","buneary","lopunny","mismagius","honchkrow","glameow",
+                    "purugly","chingling","stunky","skuntank","bronzor","bronzong",
+                    "bonsly","mime-jr","happiny","chatot","spiritomb","gible",
+                    "gabite","garchomp","munchlax","riolu","lucario","hippopotas",
+                    "hippowdon","skorupi","drapion","croagunk","toxicroak","carnivine",
+                    "finneon","lumineon","mantyke","snover","abomasnow","weavile",
+                    "magnezone","lickilicky","rhyperior","tangrowth","electivire","magmortar",
+                    "togekiss","yanmega","leafeon","glaceon","gliscor","mamoswine",
+                    "porygon-z","gallade","probopass","dusknoir","froslass","rotom",
+                    "uxie","mesprit","azelf","dialga","palkia","heatran",
+                    "regigigas","giratina-altered","cresselia","phione","manaphy","darkrai",
+                    "shaymin-land","arceus","victini","snivy","servine","serperior",
+                    "tepig","pignite","emboar","oshawott","dewott","samurott",
+                    "patrat","watchog","lillipup","herdier","stoutland","purrloin",
+                    "liepard","pansage","simisage","pansear","simisear","panpour",
+                    "simipour","munna","musharna","pidove","tranquill","unfezant",
+                    "blitzle","zebstrika","roggenrola","boldore","gigalith","woobat",
+                    "swoobat","drilbur","excadrill","audino","timburr","gurdurr",
+                    "conkeldurr","tympole","palpitoad","seismitoad","throh","sawk",
+                    "sewaddle","swadloon","leavanny","venipede","whirlipede","scolipede",
+                    "cottonee","whimsicott","petilil","lilligant","basculin-red-striped","sandile",
+                    "krokorok","krookodile","darumaka","darmanitan-standard","maractus","dwebble",
+                    "crustle","scraggy","scrafty","sigilyph","yamask","cofagrigus",
+                    "tirtouga","carracosta","archen","archeops","trubbish","garbodor",
+                    "zorua","zoroark","minccino","cinccino","gothita","gothorita",
+                    "gothitelle","solosis","duosion","reuniclus","ducklett","swanna",
+                    "vanillite","vanillish","vanilluxe","deerling","sawsbuck","emolga",
+                    "karrablast","escavalier","foongus","amoonguss","frillish","jellicent",
+                    "alomomola","joltik","galvantula","ferroseed","ferrothorn","klink",
+                    "klang","klinklang","tynamo","eelektrik","eelektross","elgyem",
+                    "beheeyem","litwick","lampent","chandelure","axew","fraxure",
+                    "haxorus","cubchoo","beartic","cryogonal","shelmet","accelgor",
+                    "stunfisk","mienfoo","mienshao","druddigon","golett","golurk",
+                    "pawniard","bisharp","bouffalant","rufflet","braviary","vullaby",
+                    "mandibuzz","heatmor","durant","deino","zweilous","hydreigon",
+                    "larvesta","volcarona","cobalion","terrakion","virizion","tornadus-incarnate",
+                    "thundurus-incarnate","reshiram","zekrom","landorus-incarnate","kyurem","keldeo-ordinary",
+                    "meloetta-aria","genesect","chespin","quilladin","chesnaught","fennekin",
+                    "braixen","delphox","froakie","frogadier","greninja","bunnelby",
+                    "diggersby","fletchling","fletchinder","talonflame","scatterbug","spewpa",
+                    "vivillon","litleo","pyroar","flabebe","floette","florges",
+                    "skiddo","gogoat","pancham","pangoro","furfrou","espurr",
+                    "meowstic-male","honedge","doublade","aegislash-shield","spritzee","aromatisse",
+                    "swirlix","slurpuff","inkay","malamar","binacle","barbaracle",
+                    "skrelp","dragalge","clauncher","clawitzer","helioptile","heliolisk",
+                    "tyrunt","tyrantrum","amaura","aurorus","sylveon","hawlucha",
+                    "dedenne","carbink","goomy","sliggoo","goodra","klefki",
+                    "phantump","trevenant","pumpkaboo-average","gourgeist-average","bergmite","avalugg",
+                    "noibat","noivern","xerneas","yveltal","zygarde","diancie",
+                    "hoopa","volcanion","rowlet","dartrix","decidueye","litten",
+                    "torracat","incineroar","popplio","brionne","primarina","pikipek",
+                    "trumbeak","toucannon","yungoos","gumshoos","grubbin","charjabug",
+                    "vikavolt","crabrawler","crabominable","oricorio-baile","cutiefly","ribombee",
+                    "rockruff","lycanroc-midday","wishiwashi-solo","mareanie","toxapex","mudbray",
+                    "mudsdale","dewpider","araquanid","fomantis","lurantis","morelull",
+                    "shiinotic","salandit","salazzle","stufful","bewear","bounsweet",
+                    "steenee","tsareena","comfey","oranguru","passimian","wimpod",
+                    "golisopod","sandygast","palossand","pyukumuku","type-null","silvally",
+                    "minior-red-meteor","komala","turtonator","togedemaru","mimikyu-disguised","bruxish",
+                    "drampa","dhelmise","jangmo-o","hakamo-o","kommo-o","tapu-koko",
+                    "tapu-lele","tapu-bulu","tapu-fini","cosmog","cosmoem","solgaleo",
+                    "lunala","nihilego","buzzwole","pheromosa","xurkitree","celesteela",
+                    "kartana","guzzlord","necrozma","magearna","marshadow","poipole",
+                    "naganadel","stakataka","blacephalon","zeraora").collect(Collectors.toList()).stream()
                     .sorted().toArray();
             pokeName = (String) JOptionPane.showInputDialog(new JFrame("      =-_-="), "Choose pokemon",
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE, null, pokeNames, pokeNames[0]);
-            makeJsonPrettyToFile(makeHTTPRequest("pokemon/" + pokeName.toLowerCase()));
+            makeJsonPrettyToFile(makeHTTPRequest("pokemon/" + pokeName));
+
+            ImageIcon pokeIcon;
+            try {
+                pokeIcon = new ImageIcon("src/main/java/exercise04/pok/" + pokeName + ".png", pokeName);
+            } catch (NullPointerException en) {
+                pokeIcon = new ImageIcon("src/main/java/exercise04/pok/" + pokeName + ".jpg", pokeName);
+            }
             JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutPokemon(),
-                    "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+                    "      =-_-=", JOptionPane.PLAIN_MESSAGE, pokeIcon);
         }
     }
 
-    public static void makeJsonPrettyToFile(String uglyJson) {
+    public void makeJsonPrettyToFile(String uglyJson) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jsonParser = new JsonParser();
         JsonElement jsonElement = jsonParser.parse(uglyJson);
@@ -89,7 +216,7 @@ public class PokeOperator {
         }
     }
 
-    public static String makeHTTPRequest(String string) {
+    public String makeHTTPRequest(String string) {
         String urlString = "https://pokeapi.co/api/v2/" + string + "/";
         String response = null;
         try {
@@ -106,21 +233,24 @@ public class PokeOperator {
         return response;
     }
 
-    private static String filterPrintoutPokemon() throws Exception {
+    private String filterPrintoutPokemon() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
         return "Id " + jsonObject.get("id") + " - name " + jsonObject.get("name") + ", height " +
                 jsonObject.get("height") + ", weight " + jsonObject.get("weight");
     }
 
-    public static Object readJson(String filename) throws Exception {
+    public Object readJson(String filename) throws Exception {
         FileReader reader = new FileReader(filename);
         JsonParser jsonParser = new JsonParser();
         return jsonParser.parse(reader);
     }
 
-    private static void locationCheck() throws Exception {
-        String locName = JOptionPane.showInputDialog(new JFrame("      =-_-="), "Enter name of a location",
-                "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+    private void locationCheck() throws Exception {
+        String locName = "";
+        do {
+            locName = JOptionPane.showInputDialog(new JFrame("      =-_-="), "Enter name of a location",
+                    "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+        } while (locName == null || locName.equals(""));
         try {
             makeJsonPrettyToFile(makeHTTPRequest("location/" + locName.toLowerCase()));
             JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutLocation(),
@@ -263,16 +393,17 @@ public class PokeOperator {
             locName = (String) JOptionPane.showInputDialog(new JFrame("      =-_-="), "Choose pokemon",
                     "      =-_-=", JOptionPane.PLAIN_MESSAGE, null, locNames, locNames[0]);
             makeJsonPrettyToFile(makeHTTPRequest("location/" + locName));
+            ImageIcon pokeApiIcon = new ImageIcon("src/main/java/exercise04/pok/pokeApi.png", "pokeApi");
             JOptionPane.showMessageDialog(new JFrame("      =-_-="),filterPrintoutLocation(),
-                    "      =-_-=", JOptionPane.PLAIN_MESSAGE);
+                    "      =-_-=", JOptionPane.PLAIN_MESSAGE, pokeApiIcon);
         }
 
     }
 
-    private static String filterPrintoutLocation() throws Exception {
+    private String filterPrintoutLocation() throws Exception {
         JsonObject jsonObject = (JsonObject) readJson(FILE_POKE);
         StringBuilder printout = new StringBuilder();
-        printout.append("Id ").append(jsonObject.get("id")).append(" - name ").append(jsonObject.get("name")).append("(");
+        printout.append("\nId ").append(jsonObject.get("id")).append(" - name ").append(jsonObject.get("name")).append("(");
         JsonArray names = jsonObject.get("names").getAsJsonArray();
         for (int i = 0; i < names.size(); i++) {
             if (i > 0)

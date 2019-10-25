@@ -2,17 +2,14 @@ package exercise04;
 
 import com.google.gson.*;
 
-import javax.swing.*;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class loc {
+public class pokList {
     private static final String FILE_POKE = "src/main/java/exercise04/poke.json";
 
     public static void makeJsonPrettyToFile(String uglyJson) {
@@ -31,7 +28,7 @@ public class loc {
         for (int i = 1; i < 1000; i++){
             if (i % 6 == 0)
                 System.out.println();
-            urlString = "https://pokeapi.co/api/v2/location/" + i + "/";
+            urlString = "https://pokeapi.co/api/v2/pokemon/" + i + "/";
             String response = null;
             try {
                 URL url = new URL(urlString);
