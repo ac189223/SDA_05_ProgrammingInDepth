@@ -1,8 +1,6 @@
 package robotProgramming;
 
-import java.awt.*;
-
-public class RoomWithWalls extends RoomOfTheRooms implements Room {
+public class RoomWithWalls extends RoomOfTheRooms {
 
     @Override
     public void crossTheBorder() {

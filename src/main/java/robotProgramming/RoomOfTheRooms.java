@@ -1,8 +1,10 @@
 package robotProgramming;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class RoomOfTheRooms implements Room{
+    private  HashMap<Integer, Character> directions;
     private final int MIN_X = 0;
     private final int MAX_X = 4;
     private final int MIN_Y = 0;
@@ -15,6 +17,11 @@ public class RoomOfTheRooms implements Room{
         this.setDirection(getStartDirection());
         this.setPosition(getStartPosition());
         this.setMode(getStartMode());
+        this.directions = new HashMap<>();
+        directions.put(0, 'N');
+        directions.put(1, 'Ö');
+        directions.put(2, 'S');
+        directions.put(3, 'W');
     }
 
     public int getMIN_X() { return MIN_X; }
@@ -24,10 +31,11 @@ public class RoomOfTheRooms implements Room{
     public int getDirection() { return direction; }
     public Point getPosition() { return position; }
     public int getMode() { return mode; }
+    public HashMap<Integer, Character> getDirections() { return directions; }
 
-    public void setDirection(int direction) { this.direction = direction % 4; }
+    public void setDirection(int direction) { this.direction = modulo(direction, 4); }
     public void setPosition(Point position) { this.position = position; }
-    public void setMode(int mode) { this.mode = mode % 2; }
+    public void setMode(int mode) { this.mode = modulo(mode, 2); }
 
     @Override
     public Point getStartPosition() { return new Point(1, 2); }
@@ -36,18 +44,24 @@ public class RoomOfTheRooms implements Room{
     public boolean contains(Point position) { return false; }
 
     public int getStartDirection() { return 0; }
-    public char getStartMode() { return 0; }
+    public char getStartMode() { return 1; }
 
     public int getX() { return (int) getPosition().getX(); }
     public int getY() { return (int) getPosition().getY(); }
 
     public boolean touchTheBorder() {
-        if ((getDirection() == 0 && getX() == getMIN_X()) ||
-                (getDirection() == 1 && getY() == getMAX_Y()) ||
-                (getDirection() == 2 && getX() == getMAX_X()) ||
-                (getDirection() == 3 && getY() == getMIN_Y()))
+        if ((getDirection() == 0 && getY() == getMIN_Y()) ||
+                (getDirection() == 1 && getX() == getMAX_X()) ||
+                (getDirection() == 2 && getY() == getMAX_Y()) ||
+                (getDirection() == 3 && getX() == getMIN_X()))
             return true;
         return false;
+    }
+
+    public void executeCommandLine(String commandLine) {
+        for (int i = 0; i < commandLine.length(); i++)
+            executeOneCommand(commandLine.charAt(i));
+        reportPosition();
     }
 
     public void executeOneCommand(char command) {
@@ -58,8 +72,7 @@ public class RoomOfTheRooms implements Room{
         else if ((getMode() == 0 && command == 'L') || (getMode() == 1 && command == 'V'))
             rotate(-1);
         else {
-            System.out.println("Error in the provided program - incorrect character");
-            System.exit(0);
+            throw new IllegalArgumentException("Error in the provided program - incorrect character: " + command);
         }
     }
 
@@ -87,8 +100,31 @@ public class RoomOfTheRooms implements Room{
         // to be implemented in subclasses
     }
 
-    public void rotate(int rotationDirection) { setDirection((getDirection() + rotationDirection) % 4); }
+    public void rotate(int rotation) { setDirection(modulo((getDirection() + rotation), 4)); }
 
-    public void changeMode() { setMode((getMode() + 1) % 2); }
-    public void changeMode(int mode) { setMode(mode % 2); }
+    public void changeMode() { setMode(modulo((getMode() + 1), 2)); }
+    public void changeMode(int mode) { setMode(modulo(getMode() + mode, 2)); }
+
+    public String reportPosition() {
+        return getX() + " " + getY() + " " + getDirections().get(getDirection());
+    }
+
+    public int modulo(int number, int moduloBy) {
+        int modulo = number % moduloBy;
+        if (number < 0)
+            modulo += moduloBy;
+        return modulo;
+    }
+
+//    public static void main(String[] args) {
+//        String commandLine = JOptionPane(new JFrame("=-_-="),
+//                "Robots' starting position is \"1 2 N\" - this mean that it is settled in square (1,2) facing North.\n" +
+//                        "Theis ​robot​ ​moves​ ​around​ ​the​ ​room​ ​by​ ​interpreting​ ​a​ ​string​ ​of​ ​commands​ ​in​ ​Swedish:\n" +
+//                        "    V​ -->  ​turn​ ​left​ ​(vänster),\n" +
+//                        "    H​ -->  ​turn​right​ ​(höger),\n" +
+//                        "    G​ -->  move forward​ ​(gå)"
+//
+//    System.out.println("Program executed. Final position: " + reportPosition();
+//    }
+
 }
