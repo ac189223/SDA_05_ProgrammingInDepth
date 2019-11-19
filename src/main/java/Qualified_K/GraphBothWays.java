@@ -143,8 +143,9 @@ public class GraphBothWays {
                 int endPoint = Integer.parseInt(way.substring(way.lastIndexOf(">") + 1));
                 for (int j = 0; j < fromTwoWays.length; j++)
                     if (fromTwoWays[j] == endPoint)
-                        if (!waysFromA[i].contains(way + "-->" + toTwoWays[j]))
-                            waysFromA[i].add(way + "-->" + toTwoWays[j]);
+                        if (!way.contains(">" + toTwoWays[j]) && !way.contains(toTwoWays[j] + "-"))
+                            if (!waysFromA[i].contains(way + "-->" + toTwoWays[j]))
+                                waysFromA[i].add(way + "-->" + toTwoWays[j]);
             }
         }
 
